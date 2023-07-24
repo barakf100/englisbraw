@@ -1,6 +1,7 @@
 from pynput import keyboard
 import pyperclip
 import keyboard
+import time
 
 def change(a):
     if a=='e':
@@ -60,23 +61,27 @@ def change(a):
     elif a == ' ':
         return a
     else: return a
+
+
+
 def englibraw(text):
     mod_text=""
-    # keyboard.press_and_release('ctrl+c')
-    # text = pyperclip.paste()
+    keyboard.press_and_release('ctrl+c')
+    time.sleep(1)
+    text = pyperclip.paste()
     for element in text:
         a = change(element)
         mod_text+= a
     pyperclip.copy(mod_text)
-    # keyboard.press_and_release('ctrl+v')
+    keyboard.press_and_release('ctrl+v')
 
 
-# def on_hotkey_press():
-#     marked_text = pyperclip.paste()
-#     englibraw(marked_text)
-
+# define hotkey
 hotkey = 'ctrl+shift+q'
 
+
+# start func with hotkey and send paste as parameter
 keyboard.add_hotkey(hotkey, lambda: englibraw(pyperclip.paste()))
 
-keyboard.wait('esc')
+# close script
+keyboard.wait('ctrl+shift+x')
